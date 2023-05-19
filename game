@@ -36,8 +36,13 @@ class Attack_2(GameSprite):
         if self.rect.y > 100:
             self.kill
               
-                        
+class Attack_3(GameSprite):
+    def update(self):
+        self.rect.x += self.speed
+        if self.rect.x > 700:
+            self.kill()    
     
+
 
 class Star_1(GameSprite):
     def update(self):
@@ -63,7 +68,13 @@ class Star_4(GameSprite):
         if self.rect.x < -50:
             self.kill()
           
-
+def starss():
+    for i in range(10):
+        y = 50
+        star1 = Attack_3(img_star, -50, y, 50, 50, 5)
+        y = +50
+        stars.add(star1)
+        
 
 window = display.set_mode((700, 500))
 clock = time.Clock()
@@ -76,6 +87,7 @@ display.set_caption('Undertale_game')
 heart = Player(img_heart, 270, 400, 30, 30, 5)
 star = Attack_1(img_star, randint(50, 620), 50, 40, 40, 5)
 ball = Attack_2(img_ball, randint(50, 620), 50, 40, 40, 5)
+stars = sprite.Group()
 game = True
 
 while game:
@@ -88,6 +100,8 @@ while game:
             if e.key == K_1:
                 star = Attack_1(img_star, randint(50, 620), 50, 40, 40, 5)
             elif e.key == K_2:
+                starss()
+            elif e.key == K_3:
                 ball = Attack_2(img_ball, 350, 50, 40, 40, 5)
                 ball.reset()
                 ball.update()
@@ -105,7 +119,11 @@ while game:
                     x_star.update()
                     x_star2.reset()
                     x_star2.update()
+            
 
+
+    stars.draw(window)
+    stars.update()
     ball.reset()
     ball.update()
     star.reset()
